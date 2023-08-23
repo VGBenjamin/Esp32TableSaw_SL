@@ -4,10 +4,15 @@
 // Project name: Esp32TableSaw_SL
 
 #include "ui.h"
+#include <lvgl.h>
 
 void Move1Clicked(lv_event_t * e)
 {
 	// Your code here
+	LV_LOG_USER("Clicked");
+	
+	lv_label_set_text_fmt(ui_lblPosition, "1");
+	//lv_label_set_text(ui_lblPosition, "1");
 }
 
 void SetMoveValue(lv_event_t * e)

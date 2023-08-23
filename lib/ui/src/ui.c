@@ -162,8 +162,8 @@ const lv_img_dsc_t * ui_imgset_settings_fill0_wght400_grad0_opsz[2] = {&ui_img_s
 const lv_img_dsc_t * ui_imgset_settings_[1] = {&ui_img_settings_24_png};
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
-#if LV_COLOR_DEPTH != 32
-    #error "LV_COLOR_DEPTH should be 32bit to match SquareLine Studio's settings"
+#if LV_COLOR_DEPTH != 16
+    #error "LV_COLOR_DEPTH should be 16bit to match SquareLine Studio's settings"
 #endif
 #if LV_COLOR_16_SWAP !=0
     #error "LV_COLOR_16_SWAP should be 0 to match SquareLine Studio's settings"
@@ -174,9 +174,11 @@ const lv_img_dsc_t * ui_imgset_settings_[1] = {&ui_img_settings_24_png};
 ///////////////////// FUNCTIONS ////////////////////
 void ui_event_Btn1(lv_event_t * e)
 {
+    LV_LOG_USER("Clicked (src)");
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
+        LV_LOG_USER("Clicked (LV_EVENT_CLICKED)");
         Move1Clicked(e);
     }
 }
