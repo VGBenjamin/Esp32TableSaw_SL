@@ -174,7 +174,6 @@ const lv_img_dsc_t * ui_imgset_settings_[1] = {&ui_img_settings_24_png};
 ///////////////////// FUNCTIONS ////////////////////
 void ui_event_Btn1(lv_event_t * e)
 {
-    LV_LOG_USER("Clicked (src)");
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
@@ -203,7 +202,7 @@ void ui_event_Btn3(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        Move1Clicked(e);
+        Move3Clicked(e);
     }
 }
 void ui_event_BtnDel(lv_event_t * e)
@@ -315,6 +314,7 @@ void ui_event_BtnGo(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
+        LV_LOG_USER("Clicked (ui_event_BtnGo)");
         MoveToPosition(e);
     }
 }
@@ -371,7 +371,7 @@ void ui_event_Btn12(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        Move1Clicked(e);
+        Move12Clicked(e);
     }
 }
 void ui_event_BtnDel1(lv_event_t * e)

@@ -10,9 +10,13 @@
 extern "C" {
 #endif
 
+bool containsComma(const char * str);
+float convertString(const char * str);
+
 void Move1Clicked(lv_event_t * e);
-void SetMoveValue(lv_event_t * e);
 void Move2Clicked(lv_event_t * e);
+void Move3Clicked(lv_event_t * e);
+void SetMoveValue(lv_event_t * e);
 void DeleteMove(lv_event_t * e);
 void Move4Clicked(lv_event_t * e);
 void Move5Clicked(lv_event_t * e);
@@ -27,6 +31,8 @@ void Move0Clicked(lv_event_t * e);
 void Move033Clicked(lv_event_t * e);
 void Move0125Clicked(lv_event_t * e);
 void MoveToPosition(lv_event_t * e);
+void Move12Clicked(lv_event_t * e);
+
 
 #ifdef __cplusplus
 } /*extern "C"*/

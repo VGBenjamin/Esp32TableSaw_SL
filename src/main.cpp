@@ -1,12 +1,17 @@
 #include <lvgl.h>
 #include <TFT_eSPI.h>
 #include <ui.h>
+#include "../lib/ui/src/StepperMotor.h"
 
 /*Don't forget to set Sketchbook location in File/Preferencesto the path of your UI project (the parent foder of this INO file)*/
 
 /*Change to your screen resolution*/
 static const uint16_t screenWidth  = 240;
 static const uint16_t screenHeight = 320;
+static const uint16_t TS_MIN_Y = 0;
+static const uint16_t TS_MAX_Y = 240;
+static const uint16_t TS_MIN_X = 0;
+static const uint16_t TS_MAX_X = 320;
 
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t buf[ screenWidth * screenHeight / 10 ];
@@ -41,7 +46,9 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
 {
     uint16_t touchX = 0, touchY = 0;
 
-    bool touched = false;//tft.getTouch( &touchX, &touchY, 600 );
+    bool touched = false;
+    tft.getTouch( &touchY, &touchX, 600 );
+    touched = touchX != 0 || touchY != 0;
 
     if( !touched )
     {
@@ -51,17 +58,23 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
     {
         data->state = LV_INDEV_STATE_PR;
 
+        //Serial.print( "Data (" + String(touchX) + ", " + String(touchY) + ")");
+        //Inverted as we have rotated the screen (pins up)
+        /* Remappage des coordonnées pour correspondre à l'orientation de l'écran */
+        int16_t nTmpX = touchX;
+        touchX = map(touchX, TS_MIN_X, TS_MAX_X, 0, 240);  // Remplacez TS_MINY et TS_MAXY par vos valeurs minimales et maximales pour Y
+        touchY = map(touchY, TS_MIN_Y, TS_MAX_Y, 0, 320);  // Remplacez TS_MINX et TS_MAXX par vos valeurs minimales et maximales pour X
+
         /*Set the coordinates*/
         data->point.x = touchX;
         data->point.y = touchY;
 
-        Serial.print( "Data x " );
-        Serial.println( touchX );
-
-        Serial.print( "Data y " );
-        Serial.println( touchY );
+        //Serial.println( " (" + String(touchX) + ", " + String(touchY) + ")");
     }
 }
+
+int PIN_DIR = 2;
+int PIN_PUL = 13;
 
 void setup()
 {
@@ -80,7 +93,7 @@ void setup()
 #endif
 
     tft.begin();          /* TFT init */
-    tft.setRotation( 2 ); /* Landscape orientation, flipped */
+    tft.setRotation( 0 ); /* Landscape orientation, flipped */
 
     lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * screenHeight / 10 );
 
@@ -109,6 +122,16 @@ void setup()
 
 void loop()
 {
+    // myStepper.moveStepperTo(1000);
+
+    // delay(1000); // Attendre une seconde
+
+    // // Faire tourner le moteur de 1000 pas dans l'autre sens
+    // myStepper.moveStepperTo(0);
+
+    // delay(1000); // Attendre une seconde
+
+
     lv_timer_handler(); /* let the GUI do its work */
     delay(5);
 }
