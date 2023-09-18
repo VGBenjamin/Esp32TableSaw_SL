@@ -1,26 +1,30 @@
 #include "StepperMotor.h"
-#include "NVSHelper.h"
+#include <Preferences.h>
+#include "helper.h"
 
 int currentPosition;
 int stepsPerMm;
-NVSHelper nvsHelper("stepperMotor");
-const char* STEP_PER_MM_KEY = "stepsPerMm" 
+const char* PREFERENCE_NAMESPACE = "STEPPER_MOTOR";
+const char* STEP_PER_MM_KEY = "stepsPerMm";
+Preferences preferences; 
 
 StepperMotor::StepperMotor(int dirPin, int stepPin) : dirPin(dirPin), stepPin(stepPin), stepper(AccelStepper::DRIVER, stepPin, dirPin) {
   currentPosition = 0;
   stepsPerMm = 1;
+
   stepper.setMaxSpeed(2000); // Vitesse maximale en pas par seconde
   stepper.setAcceleration(500); // Accélération en pas par seconde au carré
 
   // Récupérer une valeur du stepPerMm
-  int32_t value;
-  if (nvsHelper.load(STEP_PER_MM_KEY, value) != ESP_OK) {
-    Serial.println("Erreur lors du chargement");
-  } else {
-    stepsPerMm = value;
-    Serial.print("Valeur récupérée : ");
-    Serial.println(value);
-  }
+  preferences.begin(PREFERENCE_NAMESPACE, false); 
+  int value = preferences.getInt(STEP_PER_MM_KEY, 1000);
+  stepsPerMm = value;
+  Serial.print("Valeur récupérée : ");
+  Serial.println(value);
+  preferences.end();
+
+
+  lv_label_set_text(ui_lblPosition1, intToConstChar(value));
 }
 
 void StepperMotor::moveStepperTo(int position) {
@@ -30,8 +34,10 @@ void StepperMotor::moveStepperTo(int position) {
 }
 
 void StepperMotor::setStepsPerMm(int steps) {
-  stepsPerMm = value;
-  if (nvsHelper.save(STEP_PER_MM_KEY, steps) != ESP_OK) {
-    Serial.println("Erreur lors de la sauvegarde");
-  }
+  stepsPerMm = steps;
+
+  //Save it in ROM
+  preferences.begin(PREFERENCE_NAMESPACE, false); 
+  preferences.putInt(STEP_PER_MM_KEY, steps); 
+  preferences.end();
 }
