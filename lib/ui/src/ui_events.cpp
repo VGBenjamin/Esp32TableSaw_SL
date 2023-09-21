@@ -17,80 +17,89 @@ extern ScreenPosition screenPosition;
 // public:
 extern "C" {
     
-    void Move1Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("1");
-    }
 
-    void Move2Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("2");
-    }
-
-    void Move3Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("3");
-    }
-
-    void SetMoveValue(lv_event_t * e) {
+    void ButtonKey1Clicked(lv_event_t * e)
+    {
         // Your code here
     }
 
-    void DeleteMove(lv_event_t * e) {
-        screenPosition.clear();
+    void ButtonKey2Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move4Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("4");
+    void ButtonKey3Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move5Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("5");
+    void ButtonKeyDelClicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move6Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("6");
+    void ButtonKey4Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move05Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("0.5");
+    void ButtonKey5Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move7Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("7");
+    void ButtonKey6Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move8Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("8");
+    void ButtonKeyPos1Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move9Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("9");
+    void ButtonKey7Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move025Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("0.25");
+    void ButtonKey8Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void MoveCommaClicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal(",");
+    void ButtonKey9Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move0Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("0");
+    void ButtonKeyPos2Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move033Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("0.33");
+    void ButtonKeyCommaClicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move0125Clicked(lv_event_t * e) {
-        screenPosition.enterDigitOrDecimal("0.125");
+    void ButtonKey05Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void MoveToPosition(lv_event_t * e) {
-        screenPosition.validate();
+    void ButtonKeyPos3Clicked(lv_event_t * e)
+    {
+        // Your code here
     }
 
-    void Move12Clicked(lv_event_t * e) {
+    void ButtonKeyValidateClicked(lv_event_t * e)
+    {
+        // Your code here
+    }
+
+    void ButtonKeySettingsClicked(lv_event_t * e)
+    {
         // Your code here
     }
 }
-// };

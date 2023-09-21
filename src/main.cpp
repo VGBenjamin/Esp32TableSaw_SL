@@ -85,7 +85,7 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
 void custom_init() 
 {
     screenPosition.init(ui_lblPosition, myStepper);
-    screenStepsParameters.init(ui_lblPosition1, myStepper);
+    screenStepsParameters.init(ui_lblPosition, myStepper);
 }
 
 void setup()

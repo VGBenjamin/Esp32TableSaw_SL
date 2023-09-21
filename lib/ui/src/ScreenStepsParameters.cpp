@@ -17,10 +17,10 @@ void ScreenStepsParameters::validate() {
 
 void ScreenStepsParameters::activate() {
     // Change apparence of Close Button
-    lv_obj_set_style_bg_color(ui_BtnKeySettings, lv_color_hex(0xCA0C18), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_ButtonKeySettings, lv_color_hex(0xCA0C18), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_img_set_src(ui_Image2, &ui_img_1297254713);
-    lv_obj_set_align(ui_Image2, LV_ALIGN_TOP_MID);
+    lv_img_set_src(ui_LabelKeySettings, &ui_img_1297254713);
+    //lv_obj_set_align(ui_Image2, LV_ALIGN_TOP_MID);
 
-    lv_label_set_text(ui_Label18, "Set Step");
+    lv_label_set_text(ui_LabelKeyValidate, "Set Step");
 }
