@@ -13,6 +13,7 @@ class StepperMotor {
     StepperMotor(int dirPin, int stepPin);
     void moveStepperTo(int position);
     void setStepsPerMm(int steps);
+    int getStepsPerMm();
 };
 
 #endif // STEPPER_MOTOR_H

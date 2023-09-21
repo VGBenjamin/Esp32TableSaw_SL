@@ -22,13 +22,9 @@ StepperMotor::StepperMotor(int dirPin, int stepPin) : dirPin(dirPin), stepPin(st
   Serial.print("Valeur récupérée : ");
   Serial.println(value);
   preferences.end();
-
-
-  lv_label_set_text(ui_lblPosition1, intToConstChar(value));
 }
 
 void StepperMotor::moveStepperTo(int position) {
-
   stepper.moveTo(position);
   stepper.runToPosition();
 }
@@ -40,4 +36,8 @@ void StepperMotor::setStepsPerMm(int steps) {
   preferences.begin(PREFERENCE_NAMESPACE, false); 
   preferences.putInt(STEP_PER_MM_KEY, steps); 
   preferences.end();
+}
+
+int StepperMotor::getStepsPerMm() {
+  return stepsPerMm;
 }

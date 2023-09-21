@@ -2,6 +2,8 @@
 #include <TFT_eSPI.h>
 #include <ui.h>
 #include "../lib/ui/src/StepperMotor.h"
+#include "../lib/ui/src/ScreenPosition.h"
+#include "../lib/ui/src/ScreenStepsParameters.h"
 
 /*Don't forget to set Sketchbook location in File/Preferencesto the path of your UI project (the parent foder of this INO file)*/
 
@@ -16,7 +18,14 @@ static const uint16_t TS_MAX_X = 320;
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t buf[ screenWidth * screenHeight / 10 ];
 
+// Définir les broches pour le moteur
+const int PIN_DIR = 13;  // DIR+
+const int PIN_PUL = 2; // PUL
+
 TFT_eSPI tft = TFT_eSPI(screenWidth, screenHeight); /* TFT instance */
+StepperMotor myStepper(PIN_DIR, PIN_PUL);
+ScreenPosition screenPosition;
+ScreenStepsParameters screenStepsParameters;
 
 #if LV_USE_LOG != 0
 /* Serial debugging */
@@ -73,8 +82,11 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
     }
 }
 
-int PIN_DIR = 2;
-int PIN_PUL = 13;
+void custom_init() 
+{
+    screenPosition.init(ui_lblPosition, myStepper);
+    screenStepsParameters.init(ui_lblPosition1, myStepper);
+}
 
 void setup()
 {
@@ -116,6 +128,8 @@ void setup()
 
 
     ui_init();
+
+    custom_init();
 
     Serial.println( "Setup done" );
 }

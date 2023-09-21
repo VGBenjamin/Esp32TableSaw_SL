@@ -9,83 +9,24 @@
 #include <stdlib.h>
 #include <cstring>
 #include "StepperMotor.h"
+#include "ScreenPosition.h"
 
-// Définir les broches pour le moteur
-const int dirPin = 13;  // DIR+
-const int stepPin = 2; // PUL
-
-// Créer une instance de la classe StepperMotor
-StepperMotor myStepper(dirPin, stepPin);
+extern ScreenPosition screenPosition;
 
 // class UIEvents {
 // public:
 extern "C" {
-    void enterDigitOrDecimal(const char * digitOrDecimal) {
-        LV_LOG_INFO("enterDigitOrDecimal");
-        char pstring[100];
-        char * stringValue = lv_label_get_text(ui_lblPosition);
-        char result[100];
-
-        if (strcmp(stringValue, "0") == 0) { 
-            strcpy(result, digitOrDecimal);
-        } else {
-            sprintf(result, "%s%s", stringValue, digitOrDecimal);
-        }
-
-        lv_label_set_text(ui_lblPosition, result);
-    }
-
-    bool containsComma(const char * str) {
-        while (*str != '\0') {
-            if (*str == ',') {
-                return true;
-            }
-            ++str;
-        }
-        return false;
-    }
-
-    float convertString(const char * str) {
-        float result = 0.0;
-        float decimalFactor = 0.1;
-        bool isNegative = false;
-
-        if (*str == '-') {
-            isNegative = true;
-            ++str;
-        }
-
-        while (*str >= '0' && *str <= '9') {
-            result = result * 10 + (*str - '0');
-            ++str;
-        }
-
-        if (*str == '.') {
-            ++str;
-            while (*str >= '0' && *str <= '9') {
-                result = result + (*str - '0') * decimalFactor;
-                decimalFactor *= 0.1;
-                ++str;
-            }
-        }
-
-        if (isNegative) {
-            result = -result;
-        }
-
-        return result;
-    }
-
+    
     void Move1Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("1");
+        screenPosition.enterDigitOrDecimal("1");
     }
 
     void Move2Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("2");
+        screenPosition.enterDigitOrDecimal("2");
     }
 
     void Move3Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("3");
+        screenPosition.enterDigitOrDecimal("3");
     }
 
     void SetMoveValue(lv_event_t * e) {
@@ -93,71 +34,59 @@ extern "C" {
     }
 
     void DeleteMove(lv_event_t * e) {
-        lv_label_set_text(ui_lblPosition, "0");
+        screenPosition.clear();
     }
 
     void Move4Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("4");
+        screenPosition.enterDigitOrDecimal("4");
     }
 
     void Move5Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("5");
+        screenPosition.enterDigitOrDecimal("5");
     }
 
     void Move6Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("6");
+        screenPosition.enterDigitOrDecimal("6");
     }
 
     void Move05Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("0.5");
+        screenPosition.enterDigitOrDecimal("0.5");
     }
 
     void Move7Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("7");
+        screenPosition.enterDigitOrDecimal("7");
     }
 
     void Move8Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("8");
+        screenPosition.enterDigitOrDecimal("8");
     }
 
     void Move9Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("9");
+        screenPosition.enterDigitOrDecimal("9");
     }
 
     void Move025Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("0.25");
+        screenPosition.enterDigitOrDecimal("0.25");
     }
 
     void MoveCommaClicked(lv_event_t * e) {
-        enterDigitOrDecimal(",");
+        screenPosition.enterDigitOrDecimal(",");
     }
 
     void Move0Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("0");
+        screenPosition.enterDigitOrDecimal("0");
     }
 
     void Move033Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("0.33");
+        screenPosition.enterDigitOrDecimal("0.33");
     }
 
     void Move0125Clicked(lv_event_t * e) {
-        enterDigitOrDecimal("0.125");
+        screenPosition.enterDigitOrDecimal("0.125");
     }
 
     void MoveToPosition(lv_event_t * e) {
-        char * stringValue = lv_label_get_text(ui_lblPosition);
-        int intValue = atoi(stringValue);
-
-        //just for the log
-        // std::string myString = std::to_string(intValue);
-        // const char* myCStr = myString.c_str();
-        // LV_LOG_INFO(myCStr);
-
-        myStepper.moveStepperTo(intValue);
-        //myStepper.moveToPosition(intValue);
-
-        lv_label_set_text(ui_lblPosition, "0");
-
+        screenPosition.validate();
     }
 
     void Move12Clicked(lv_event_t * e) {
